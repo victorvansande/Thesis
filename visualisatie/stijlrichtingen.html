@@ -1,0 +1,259 @@
+<title>Stijlrichtingen Misleiding</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=DM+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Jost:wght@400;500;700&family=Schibsted+Grotesk:wght@400;600;800&family=Spectral:wght@400;600&display=swap">
+<style>
+/* Layout: neutrale presentatiepagina met vier stijlpanelen in een 2×2-raster; elk paneel draagt zijn eigen vaste look. */
+:root{--bg:#f4f5f7;--fg:#15171c;--fg2:#555b67;--rule:#dfe2e7;--card:#ffffff;
+  --f-ui:"IBM Plex Sans",system-ui,sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111317;--fg:#eceef2;--fg2:#a9aeb8;--rule:#2a2e35;--card:#181b20;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111317;--fg:#eceef2;--fg2:#a9aeb8;--rule:#2a2e35;--card:#181b20;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:16px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:1240px;margin:0 auto;padding-block:48px 72px;display:grid;gap:36px}
+.intro{max-width:66ch;display:grid;gap:10px}
+.intro h1{font-family:var(--f-ui);font-size:clamp(1.6rem,3.4vw,2.2rem);line-height:1.15;margin:0;font-weight:600;text-wrap:balance}
+.intro p{margin:0;color:var(--fg2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,540px),1fr));gap:40px 32px}
+.opt{display:grid;gap:14px;align-content:start;min-width:0}
+.opt header{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.opt .letter{font-family:var(--f-mono);font-weight:600;font-size:.85rem;border:1.5px solid var(--fg);border-radius:4px;padding:1px 8px}
+.opt h2{margin:0;font-size:1.25rem;font-weight:600}
+.opt .pitch{margin:0;color:var(--fg2);font-size:.95rem}
+.opt ul{margin:0;padding-left:18px;color:var(--fg2);font-size:.88rem;display:grid;gap:4px}
+.opt ul b{color:var(--fg);font-weight:600}
+.panel{position:relative;overflow:hidden;border-radius:6px;min-height:520px;isolation:isolate}
+.panel svg{display:block;max-width:100%}
+
+/* ---------- A · Factcheck-dossier ---------- */
+.pa{background:#dfe3e8;padding:26px 22px}
+.pa .sheet{background:#ffffff;color:#16181d;padding:26px 26px 22px;box-shadow:0 1px 0 #c9ced6,0 10px 26px rgba(20,25,35,.12);position:relative;display:grid;gap:14px}
+.pa .meta{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.08em;color:#5f6672;text-transform:uppercase;border-bottom:1.5px solid #16181d;padding-bottom:8px}
+.pa h3{font-family:"Archivo",sans-serif;font-stretch:68%;font-weight:850;font-size:3.1rem;line-height:.9;letter-spacing:-.01em;text-transform:uppercase;margin:4px 0 0}
+.pa .red{position:relative;display:inline-block}
+.pa .red::after{content:"";position:absolute;inset:6% -3% 2%;background:#16181d;transform-origin:right;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.pa:hover .red::after{transform:scaleX(0)}
+.pa .sub{font-family:"Archivo",sans-serif;font-stretch:100%;font-size:.98rem;color:#3b414c;max-width:40ch;margin:0}
+.pa .mark{background:linear-gradient(100deg,transparent 2%,#ffe14d 4%,#ffe14d 96%,transparent 98%);padding:0 4px;font-family:"IBM Plex Mono",monospace;font-weight:600}
+.pa .stamp{position:absolute;right:20px;top:64px;transform:rotate(-7deg);border:2.5px solid #c8322b;color:#c8322b;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.72rem;letter-spacing:.12em;padding:6px 10px;border-radius:3px;text-align:center;line-height:1.3;opacity:.92;mix-blend-mode:multiply}
+.pa .note{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:#5f6672;letter-spacing:.04em}
+
+/* ---------- B · Isotype ---------- */
+.pb{background:#f7f7f4;color:#1d1d1b;padding:26px 24px;display:grid;gap:16px;align-content:start}
+.pb .bar{display:flex;justify-content:space-between;align-items:center;border-top:6px solid #1d1d1b;padding-top:10px;font-family:"Jost",sans-serif;font-weight:500;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.pb h3{font-family:"Jost",sans-serif;font-weight:700;font-size:2.6rem;line-height:.98;letter-spacing:.01em;text-transform:uppercase;margin:0}
+.pb h3 span{color:#b8432f}
+.pb .lead{font-family:"Jost",sans-serif;font-size:1rem;margin:0;max-width:42ch}
+.pb .key{font-family:"Jost",sans-serif;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.pb .blocks{display:grid;grid-template-columns:1fr 1fr;gap:0;border:3px solid #1d1d1b}
+.pb .blk{padding:12px 14px;font-family:"Jost",sans-serif}
+.pb .blk .n{font-size:2.4rem;font-weight:700;line-height:1}
+.pb .blk .t{font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.pb .blk.b1{background:#2f5d8a;color:#ffffff}.pb .blk.b2{background:#d9a22e;color:#1d1d1b}
+
+/* ---------- C · Signaal & ruis ---------- */
+.pc{background:#0c1220;color:#e6ebf3;padding:26px 24px;display:grid;gap:14px;align-content:start}
+.pc::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.22;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.pc::after{content:"";position:absolute;inset:-20% -10% auto auto;width:70%;height:70%;z-index:-1;background:radial-gradient(closest-side,rgba(95,212,230,.16),transparent)}
+.pc .kick{font-family:"DM Mono",monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#7fdcea}
+.pc h3{font-family:"Schibsted Grotesk",sans-serif;font-weight:800;font-size:2.9rem;line-height:.95;letter-spacing:-.025em;margin:0}
+.pc h3 i{font-style:normal;color:transparent;-webkit-text-stroke:1.2px #e6ebf3}
+.pc .lead{font-family:"Schibsted Grotesk",sans-serif;color:#aab4c4;margin:0;max-width:44ch;font-size:.98rem}
+.pc canvas{width:100%;height:150px;display:block}
+.pc .row{display:flex;gap:18px;flex-wrap:wrap;font-family:"DM Mono",monospace;font-size:.78rem;color:#aab4c4}
+.pc .row b{color:#ff7a59;font-weight:500;font-size:1.5rem;display:block;font-family:"Schibsted Grotesk",sans-serif}
+
+/* ---------- D · Labjournaal ---------- */
+.pd{color:#1f3a8a;padding:26px 24px 24px 64px;display:grid;gap:12px;align-content:start;
+  background-color:#f8fafb;
+  background-image:linear-gradient(#cfe1e8 1px,transparent 1px),linear-gradient(90deg,#cfe1e8 1px,transparent 1px),linear-gradient(#e6eff3 1px,transparent 1px),linear-gradient(90deg,#e6eff3 1px,transparent 1px);
+  background-size:40px 40px,40px 40px,8px 8px,8px 8px}
+.pd::before{content:"";position:absolute;left:44px;top:0;bottom:0;width:1.5px;background:#e58f88}
+.pd .hd{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:#4d63a8}
+.pd h3{font-family:"Spectral",serif;font-weight:600;font-size:2.5rem;line-height:1;margin:0;color:#172b6b}
+.pd .lead{font-family:"Spectral",serif;font-size:1.02rem;color:#2c437f;margin:0;max-width:42ch}
+.pd .hand{font-family:"Caveat",cursive;color:#d23b30;font-size:1.35rem;line-height:1}
+.pd .tab{position:absolute;right:0;top:86px;background:#1f3a8a;color:#f8fafb;font-family:"IBM Plex Mono",monospace;font-size:.68rem;padding:6px 10px;border-radius:4px 0 0 4px;letter-spacing:.06em}
+.pd .margin{position:absolute;left:8px;top:150px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.14em;color:#9aa6c4}
+
+@media (prefers-reduced-motion: reduce){.pa .red::after{transition:none}}
+</style>
+
+<div class="wrap">
+  <div class="intro">
+    <h1>Vier stijlrichtingen voor De Macht van Misleiding</h1>
+    <p>Elk paneel is een snelle schets van de opening en één echte grafiek uit de thesis (correlaties met complotdenken, N = 241). De inhoud en de stippenanimatie van de steekproef blijven in elke richting behouden; alleen de vormgeving verandert.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- A -->
+    <article class="opt">
+      <header><span class="letter">A</span><h2>Factcheck-dossier</h2></header>
+      <p class="pitch">De site als onderzoeksdossier van een factcheckredactie. Gelakte tekst die vrijkomt, markeerstift op de kerncijfers, stempels als conclusies.</p>
+      <div class="panel pa">
+        <div class="sheet">
+          <div class="meta"><span>Dossier UA-2025 / 241</span><span>Vertrouwelijk → openbaar</span></div>
+          <h3>De macht van <span class="red">misleiding</span></h3>
+          <p class="sub">Wie media en overheid wantrouwt, gelooft vaker in complotten: <span class="mark">r = −.54</span></p>
+          <div class="stamp">GEVERIFIEERD<br>N = 241</div>
+          <svg id="fa" viewBox="0 0 480 170" role="img" aria-label="Correlaties met complotdenken"></svg>
+          <p class="note">Beweeg over het paneel: de lak verdwijnt van de titel.</p>
+        </div>
+      </div>
+      <ul>
+        <li><b>Type:</b> smal, zwaar grotesk voor koppen; typemachine-mono voor cijfers en labels.</li>
+        <li><b>Kleur:</b> zwart op wit papier, markeerstiftgeel en stempelrood als enige accenten.</li>
+        <li><b>Signatuur:</b> lakbalken die bij het scrollen wegschuiven en zo bevindingen “vrijgeven”.</li>
+        <li><b>Stippen:</b> respondenten als dossierfiches; uitgevallen respondenten worden doorgestreept.</li>
+      </ul>
+    </article>
+
+    <!-- B -->
+    <article class="opt">
+      <header><span class="letter">B</span><h2>Isotype-atlas</h2></header>
+      <p class="pitch">Naar Otto Neurath: vlakke kleurvlakken, een strak raster en pictogrammen waarin elk figuurtje een vast aantal respondenten telt. Grafisch, helder, met karakter.</p>
+      <div class="panel pb">
+        <div class="bar"><span>Atlas van het vertrouwen</span><span>Vlaanderen · 2025</span></div>
+        <h3>De macht van <span>misleiding</span></h3>
+        <p class="lead">241 Vlamingen over vertrouwen, media en complotten.</p>
+        <svg id="fb" viewBox="0 0 480 150" role="img" aria-label="Respondenten per geslacht in pictogrammen"></svg>
+        <div class="key"><svg width="10" height="20" viewBox="0 0 10 20"><use href="#person" fill="#1d1d1b"/></svg> = 10 respondenten</div>
+        <div class="blocks">
+          <div class="blk b1"><div class="n">−.54</div><div class="t">mediavertrouwen ↔ complotdenken</div></div>
+          <div class="blk b2"><div class="n">33 %</div><div class="t">verklaarde variantie</div></div>
+        </div>
+      </div>
+      <ul>
+        <li><b>Type:</b> geometrische schreefloze in kapitalen, ruim gespatieerd.</li>
+        <li><b>Kleur:</b> vier vlakke kleuren (Neurath-blauw, baksteenrood, oker, zwart) op wit.</li>
+        <li><b>Signatuur:</b> pictogrammen en dikke kaders; elke grafiek leest als een plaat uit een atlas.</li>
+        <li><b>Stippen:</b> worden figuurtjes die zich per stap hergroeperen, deelfiguren voor restaantallen.</li>
+      </ul>
+    </article>
+
+    <!-- C -->
+    <article class="opt">
+      <header><span class="letter">C</span><h2>Signaal &amp; ruis</h2></header>
+      <p class="pitch">Donker en atmosferisch: de information overload als ruis waaruit de data zich ordenen. Korrel, gloeiende lijnen, een duidelijk signaal tegen een onrustige achtergrond.</p>
+      <div class="panel pc">
+        <span class="kick">Post-truth · Vlaanderen · N = 241</span>
+        <h3>De macht van <i>misleiding</i></h3>
+        <p class="lead">In een zee van informatie: wat hangt samen met complotdenken?</p>
+        <canvas id="noise" aria-label="241 deeltjes die van ruis naar orde bewegen" role="img"></canvas>
+        <svg id="fc" viewBox="0 0 480 150" role="img" aria-label="Correlaties met complotdenken"></svg>
+        <div class="row"><span><b>−.54</b>mediavertrouwen</span><span><b style="color:#7fdcea">.29</b>mistrust</span><span><b style="color:#7fdcea">.25</b>credulity</span></div>
+      </div>
+      <ul>
+        <li><b>Type:</b> compacte, zware grotesk met contourletters; technische mono voor data.</li>
+        <li><b>Kleur:</b> diep nachtblauw, signaalcyaan voor positieve en koraal voor negatieve verbanden.</li>
+        <li><b>Signatuur:</b> deeltjes die van ruis naar structuur bewegen; korrel over de hele pagina.</li>
+        <li><b>Stippen:</b> beginnen als ruis en klikken per stap in hun groep. Pagina blijft donker in beide thema’s.</li>
+      </ul>
+    </article>
+
+    <!-- D -->
+    <article class="opt">
+      <header><span class="letter">D</span><h2>Labjournaal</h2></header>
+      <p class="pitch">Het notitieboek van de onderzoeker: millimeterpapier, grafieken in vulpeninkt en annotaties in rood potlood die de lezer langs de bevindingen leiden.</p>
+      <div class="panel pd">
+        <span class="margin">MASTERPROEF · UANTWERPEN</span>
+        <span class="tab">p. 35</span>
+        <div class="hd"><span>Labjournaal · V. Van Sande</span><span>05–22.05.2025</span></div>
+        <h3>De Macht van Misleiding</h3>
+        <p class="lead">Epistemisch vertrouwen, mediavertrouwen en complotdenken bij 241 Vlamingen.</p>
+        <svg id="fd" viewBox="0 0 470 190" role="img" aria-label="Correlaties met complotdenken met annotatie"></svg>
+        <span class="hand">→ het betrouwbaarheidsinterval raakt de nul nergens</span>
+      </div>
+      <ul>
+        <li><b>Type:</b> leesbare boekschreef voor koppen en tekst, mono voor metingen, handschrift uitsluitend voor annotaties.</li>
+        <li><b>Kleur:</b> inktblauw op millimeterpapier, rood potlood voor nadruk.</li>
+        <li><b>Signatuur:</b> handgeschreven kanttekeningen met pijlen bij de belangrijkste bevindingen.</li>
+        <li><b>Stippen:</b> als inktpunten op het raster, met potloodaccolades rond de groepen.</li>
+      </ul>
+    </article>
+
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="person" viewBox="0 0 10 20"><circle cx="5" cy="3.1" r="3"/><path d="M1 8.6 Q1 7 2.6 7 H7.4 Q9 7 9 8.6 V14 H7.5 V20 H2.5 V14 H1 Z"/></symbol>
+</svg>
+
+<script>
+(function(){
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a){if(k==="text")e.textContent=a[k];else e.setAttribute(k,a[k]);}if(p)p.appendChild(e);return e;};
+const D=[["Mediavertrouwen",-.542,-.626,-.446],["Mistrust",.292,.172,.403],["Credulity",.252,.130,.367]];
+const f=v=>(v<0?"−":"")+Math.abs(v).toFixed(2).replace(/^0/,"");
+
+/* A: dossier forest */
+(function(){const s=document.getElementById("fa"),lw=150,W=480,x=v=>lw+(v+.8)/1.4*(W-lw-70);
+  [-.6,-.3,0,.3].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:6,y2:138,stroke:t===0?"#16181d":"#d5d9df","stroke-width":t===0?1.5:1},s);el("text",{x:x(t),y:156,"text-anchor":"middle","font-family":"IBM Plex Mono","font-size":10,fill:"#5f6672",text:t===0?"0":f(t)},s);});
+  D.forEach(([n,r,l,h],i)=>{const y=26+i*42;
+    el("text",{x:lw-12,y:y+4,"text-anchor":"end","font-family":"Archivo","font-weight":700,"font-size":13,style:"font-stretch:80%",fill:"#16181d",text:n.toUpperCase()},s);
+    if(i===0)el("rect",{x:x(l)-8,y:y-10,width:x(h)-x(l)+16,height:20,rx:3,fill:"#ffe14d"},s);
+    el("line",{x1:x(l),x2:x(h),y1:y,y2:y,stroke:r<0?"#c8322b":"#16181d","stroke-width":2.5},s);
+    el("rect",{x:x(r)-5,y:y-5,width:10,height:10,fill:r<0?"#c8322b":"#16181d"},s);
+    el("text",{x:W-60,y:y+4,"font-family":"IBM Plex Mono","font-weight":600,"font-size":12,fill:"#16181d",text:"r = "+f(r)},s);});
+})();
+
+/* B: isotype pictograms */
+(function(){const s=document.getElementById("fb"),fw=15,fh=30,gap=3,x0=96;
+  const rows=[["VROUW",178,"#b8432f"],["MAN",60,"#2f5d8a"],["ANDERS / N.V.T.",3,"#1d1d1b"]];
+  rows.forEach(([lab,n,c],ri)=>{const y=6+ri*(fh+16),full=Math.floor(n/10),part=(n%10)/10;
+    el("text",{x:0,y:y+fh/2+4,"font-family":"Jost","font-weight":500,"font-size":11,"letter-spacing":".08em",fill:"#1d1d1b",text:lab},s);
+    for(let i=0;i<full+(part>0?1:0);i++){const px=x0+i*(fw+gap);
+      if(i===full){const cid="cp"+ri;const cp=el("clipPath",{id:cid},s);el("rect",{x:px,y,width:fw*part,height:fh},cp);el("use",{href:"#person",x:px,y,width:fw,height:fh,fill:c,"clip-path":`url(#${cid})`},s);}
+      else el("use",{href:"#person",x:px,y,width:fw,height:fh,fill:c},s);}
+    el("text",{x:x0+(full+(part>0?1:0))*(fw+gap)+6,y:y+fh/2+6,"font-family":"Jost","font-weight":700,"font-size":16,fill:c,text:n},s);
+  });
+})();
+
+/* C: glowing forest */
+(function(){const s=document.getElementById("fc"),lw=140,W=480,x=v=>lw+(v+.8)/1.4*(W-lw-20);
+  const defs=el("defs",{},s),fl=el("filter",{id:"glow",filterUnits:"userSpaceOnUse",x:0,y:0,width:480,height:150},defs);el("feGaussianBlur",{stdDeviation:3.2,result:"b"},fl);const m=el("feMerge",{},fl);el("feMergeNode",{in:"b"},m);el("feMergeNode",{in:"SourceGraphic"},m);
+  [-.6,-.3,0,.3].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:6,y2:120,stroke:t===0?"#8892a6":"#1d273b","stroke-width":1},s);el("text",{x:x(t),y:138,"text-anchor":"middle","font-family":"DM Mono","font-size":10,fill:"#6b778c",text:t===0?"0":f(t)},s);});
+  D.forEach(([n,r,l,h],i)=>{const y=22+i*38,c=r<0?"#ff7a59":"#5fd4e6";
+    el("text",{x:lw-14,y:y+4,"text-anchor":"end","font-family":"Schibsted Grotesk","font-weight":600,"font-size":13,fill:"#e6ebf3",text:n},s);
+    el("line",{x1:x(l),x2:x(h),y1:y,y2:y,stroke:c,"stroke-width":3,"stroke-linecap":"round",filter:"url(#glow)"},s);
+    el("circle",{cx:x(r),cy:y,r:5.5,fill:"#0c1220",stroke:c,"stroke-width":2.5,filter:"url(#glow)"},s);});
+})();
+
+/* C: noise → order particles */
+(function(){const cv=document.getElementById("noise"),ctx=cv.getContext("2d");let W=0,H=0,P=[];
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function init(){const r=cv.getBoundingClientRect(),dpr=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const cols=Math.floor(W/12),sp=8.5,gx=W-cols*0-0;P=[];const gcols=31,ox=(W-gcols*sp)/2,oy=(H-8*sp)/2;
+    for(let i=0;i<241;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:0,vy:0,tx:ox+(i%gcols)*sp,ty:oy+Math.floor(i/gcols)*sp,hl:i<178});}
+  let t0=performance.now();
+  function frame(now){const T=((now-t0)/1000)%8,k=reduce?1:(T<2?0:T<4?(T-2)/2:T<6?1:1-(T-6)/2),e=k*k*(3-2*k);
+    ctx.clearRect(0,0,W,H);
+    P.forEach(p=>{if(!reduce){p.vx+=(Math.random()-.5)*.6;p.vy+=(Math.random()-.5)*.6;p.vx*=.92;p.vy*=.92;p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;}
+      const X=p.x+(p.tx-p.x)*e,Y=p.y+(p.ty-p.y)*e;ctx.fillStyle=p.hl?`rgba(95,212,230,${.45+.5*e})`:`rgba(230,235,243,${.35+.4*e})`;ctx.beginPath();ctx.arc(X,Y,1.6+.8*e,0,6.283);ctx.fill();});
+    if(!reduce)requestAnimationFrame(frame);}
+  init();requestAnimationFrame(frame);addEventListener("resize",()=>{init();if(reduce)requestAnimationFrame(frame);});
+})();
+
+/* D: lab notebook forest with annotation */
+(function(){const s=document.getElementById("fd"),lw=132,W=470,x=v=>lw+(v+.8)/1.4*(W-lw-60);
+  const ink="#1f3a8a",red="#d23b30";
+  el("line",{x1:x(-.8),x2:x(.6),y1:150,y2:150,stroke:ink,"stroke-width":1.4},s);
+  [-.8,-.6,-.4,-.2,0,.2,.4,.6].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:146,y2:154,stroke:ink},s);el("text",{x:x(t),y:168,"text-anchor":"middle","font-family":"IBM Plex Mono","font-size":10,fill:ink,text:t===0?"0":f(t)},s);});
+  el("line",{x1:x(0),x2:x(0),y1:28,y2:150,stroke:ink,"stroke-width":1},s);
+  D.forEach(([n,r,l,h],i)=>{const y=54+i*34;
+    el("text",{x:lw-12,y:y+4,"text-anchor":"end","font-family":"Spectral","font-weight":600,"font-size":14,fill:ink,text:n},s);
+    el("line",{x1:x(l),x2:x(h),y1:y,y2:y,stroke:ink,"stroke-width":1.6},s);
+    [l,h].forEach(v=>el("line",{x1:x(v),x2:x(v),y1:y-5,y2:y+5,stroke:ink,"stroke-width":1.6},s));
+    el("circle",{cx:x(r),cy:y,r:4.5,fill:ink},s);});
+  // red pencil annotation around strongest finding
+  const cx=x(-.542),cy=54;
+  el("ellipse",{cx,cy,rx:58,ry:15,fill:"none",stroke:red,"stroke-width":1.8,transform:`rotate(-4 ${cx} ${cy})`},s);
+  el("path",{d:`M${cx+40},${cy-26} C${cx+70},${cy-34} ${cx+110},${cy-32} ${cx+140},${cy-22}`,fill:"none",stroke:red,"stroke-width":1.6},s);
+  el("path",{d:`M${cx+40},${cy-26} l8,-5 M${cx+40},${cy-26} l9,3`,fill:"none",stroke:red,"stroke-width":1.6},s);
+  el("text",{x:cx+146,y:cy-16,"font-family":"Caveat","font-weight":700,"font-size":20,fill:red,text:"sterkste verband!"},s);
+})();
+})();
+</script>
