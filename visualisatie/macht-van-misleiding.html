@@ -1,0 +1,793 @@
+<title>De Macht van Misleiding</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<style>
+/* Layout: één smalle leeskolom (≈68ch) met brede figuurkolommen; één sticky scrolly-figuur voor de steekproef. */
+:root{
+  --bg:#fbfbfc; --surface:#ffffff; --ink:#12141a; --ink-2:#4b505c; --muted:#7c818c;
+  --rule:#e4e6ea; --rule-strong:#c9ccd3; --cell0:#f0f1f4;
+  --pos:#2a6fd1; --neg:#d6423e; --accent:#2a4fc4; --on-strong:#ffffff;
+  --warn:#b26a00;
+  --f-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-data:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure:68ch;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111317; --surface:#171a1f; --ink:#eceef2; --ink-2:#b8bcc6; --muted:#8a909b;
+    --rule:#262a31; --rule-strong:#3a3f48; --cell0:#1f2329;
+    --pos:#4a8fea; --neg:#e65a55; --accent:#7d9bff; --on-strong:#0d0f12; --warn:#e0a040;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111317; --surface:#171a1f; --ink:#eceef2; --ink-2:#b8bcc6; --muted:#8a909b;
+  --rule:#262a31; --rule-strong:#3a3f48; --cell0:#1f2329;
+  --pos:#4a8fea; --neg:#e65a55; --accent:#7d9bff; --on-strong:#0d0f12; --warn:#e0a040;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));}
+.wrap{max-width:1080px;margin:0 auto}
+.col{max-width:var(--measure)}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;text-wrap:balance;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.02}
+h2{font-size:clamp(1.7rem,3.6vw,2.3rem);line-height:1.15}
+h3{font-size:1.2rem;line-height:1.3}
+p{margin:0}
+.eyebrow{font-family:var(--f-data);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:1.2rem;color:var(--ink-2);line-height:1.5}
+.small{font-size:.85rem;color:var(--ink-2)}
+.mono{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+em.stat,.stat{font-family:var(--f-data);font-style:normal;font-size:.9em;white-space:nowrap}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* progress */
+.progress{position:fixed;inset:0 0 auto;height:calc(2px + env(safe-area-inset-top, 0px));z-index:20;pointer-events:none}
+.progress i{display:block;position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--accent)}
+
+/* hero */
+header.hero{padding-block:clamp(48px,10vw,104px) 40px;display:grid;gap:28px;border-bottom:1px solid var(--rule)}
+.hero .sub{font-family:var(--f-display);font-size:clamp(1.15rem,2.4vw,1.45rem);color:var(--ink-2);max-width:40ch;line-height:1.35;font-weight:500}
+.byline{display:flex;flex-wrap:wrap;gap:6px 28px;font-size:.9rem;color:var(--ink-2)}
+.byline b{color:var(--ink);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+.tile{background:var(--bg);padding:18px 20px;display:grid;gap:4px;align-content:start}
+.tile .v{font-family:var(--f-data);font-size:2rem;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .v.neg{color:var(--neg)}
+.tile .k{font-size:.86rem;color:var(--ink-2);line-height:1.4}
+
+/* sections */
+section.chap{padding-block:72px 24px;display:grid;gap:22px}
+section.chap + section.chap{border-top:1px solid var(--rule)}
+.chap > .col{display:grid;gap:16px}
+.num{font-family:var(--f-data);font-size:.78rem;color:var(--accent);letter-spacing:.06em}
+figure{margin:8px 0 0;display:grid;gap:10px;min-width:0}
+figcaption{font-size:.84rem;color:var(--muted);max-width:var(--measure)}
+.fig-title{font-weight:600;font-size:.98rem}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.82rem;color:var(--ink-2);align-items:center}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+blockquote{margin:0;padding:4px 0 4px 20px;border-left:2px solid var(--rule-strong);font-family:var(--f-display);font-size:1.15rem;line-height:1.45;color:var(--ink-2);max-width:var(--measure)}
+blockquote cite{display:block;font-family:var(--f-body);font-style:normal;font-size:.82rem;color:var(--muted);margin-top:8px}
+
+details.tech{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);max-width:var(--measure)}
+details.tech summary{cursor:pointer;list-style:none;padding:12px 0;font-family:var(--f-data);font-size:.8rem;letter-spacing:.04em;color:var(--ink-2);display:flex;gap:10px;align-items:center}
+details.tech summary::-webkit-details-marker{display:none}
+details.tech summary::before{content:"+";display:inline-grid;place-items:center;width:18px;height:18px;border:1px solid var(--rule-strong);border-radius:50%;font-size:.8rem;line-height:1}
+details.tech[open] summary::before{content:"−"}
+details.tech .body{padding:0 0 18px;display:grid;gap:12px;font-size:.92rem;color:var(--ink-2)}
+.tbl-wrap{overflow-x:auto}
+table{border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums;min-width:100%}
+th,td{text-align:left;padding:6px 12px 6px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-weight:600;color:var(--ink);font-size:.78rem}
+td.n,th.n{text-align:right;font-family:var(--f-data)}
+
+/* likert rows */
+.rows{display:grid;gap:4px;max-width:820px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:6px 20px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule)}
+.row .lbl{font-size:.92rem;line-height:1.4;min-width:0}
+.row .lbl small{display:block;color:var(--muted);font-size:.78rem}
+.row svg{width:100%;height:34px;display:block;overflow:visible}
+.axis-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px}
+.axis-row svg{width:100%;height:30px;display:block;overflow:visible}
+@media (max-width:640px){.row,.axis-row{grid-template-columns:1fr}.axis-row > div:first-child{display:none}}
+
+/* model diagram */
+.diagram{overflow-x:auto}
+.diagram svg{display:block;min-width:600px;width:100%;height:auto}
+
+/* scrolly */
+.scrolly{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;position:relative}
+.scrolly .stage{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 24px);align-self:start;min-width:0}
+.scrolly .stage svg{display:block;width:100%;height:auto;overflow:visible}
+.steps{display:grid;gap:52vh;padding-block:6vh 30vh}
+.step{max-width:44ch;padding:18px 20px;border:1px solid var(--rule);background:var(--surface);border-radius:4px;transition:border-color .3s}
+.step.on{border-color:var(--accent)}
+.step h3{font-size:1.05rem;margin-bottom:6px}
+.step p{font-size:.95rem;color:var(--ink-2)}
+.dotnote{font-size:.78rem;color:var(--muted);margin-top:8px}
+@media (max-width:820px){
+  .scrolly{grid-template-columns:1fr;gap:0}
+  .scrolly .stage{top:env(safe-area-inset-top, 0px);background:var(--bg);z-index:2;padding-block:8px;border-bottom:1px solid var(--rule)}
+  .steps{gap:40vh;padding-block:20px 30vh}
+  .step{background:var(--surface)}
+}
+.dot{transition:transform .9s cubic-bezier(.6,.05,.25,1), fill .6s, opacity .6s}
+.glabel{transition:opacity .5s}
+
+/* matrix + charts */
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:start}
+.two > *{min-width:0}
+
+/* simulator */
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;border:1px solid var(--rule);background:var(--surface);padding:24px;border-radius:4px}
+@media (max-width:760px){.sim{grid-template-columns:1fr;padding:18px}}
+.sim .ctl{display:grid;gap:16px;align-content:start}
+.ctl label{display:flex;justify-content:space-between;gap:8px;font-size:.9rem}
+.ctl label span.mono{color:var(--ink-2)}
+.ctl input[type=range]{width:100%;accent-color:var(--accent)}
+.ctl .flag{font-size:.75rem;color:var(--warn);min-height:1em}
+.sim .out{display:grid;gap:14px;align-content:start;min-width:0}
+.pred{font-family:var(--f-data);font-size:2.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.btn{font:inherit;font-size:.82rem;padding:6px 12px;border:1px solid var(--rule-strong);background:transparent;color:var(--ink);border-radius:3px;cursor:pointer;justify-self:start}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* limitations */
+.lims{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.lim{background:var(--bg);padding:20px;display:grid;gap:8px;align-content:start}
+.lim h3{font-family:var(--f-body);font-size:.98rem;font-weight:600}
+.lim p{font-size:.9rem;color:var(--ink-2)}
+.lim .tag{font-family:var(--f-data);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+.synth{border-left:3px solid var(--accent);padding:6px 0 6px 22px;display:grid;gap:12px;max-width:var(--measure)}
+.synth p{font-size:1.1rem}
+ol.refs{padding-left:0;list-style:none;display:grid;gap:10px;font-size:.84rem;color:var(--ink-2);max-width:var(--measure)}
+ol.refs li{padding-left:2em;text-indent:-2em;overflow-wrap:anywhere}
+footer{padding-block:56px 72px;border-top:1px solid var(--rule);display:grid;gap:20px}
+
+/* tooltip */
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--rule-strong);border-radius:4px;padding:8px 10px;font-size:.8rem;line-height:1.45;max-width:260px;box-shadow:0 4px 18px rgba(0,0,0,.08);opacity:0;transition:opacity .12s}
+#tip b{font-weight:600}
+#tip .mono{font-size:.78rem}
+[data-tip]{cursor:default}
+@media (prefers-reduced-motion: reduce){.dot,.glabel,.step{transition:none}}
+</style>
+
+<div class="progress" aria-hidden="true"><i id="prog"></i></div>
+<div id="tip" role="tooltip"></div>
+
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Masterproef communicatiewetenschappen · Universiteit Antwerpen · 2024–2025</p>
+  <h1>De Macht van Misleiding</h1>
+  <p class="sub">Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen</p>
+  <div class="byline">
+    <span><b>Victor Van Sande</b></span>
+    <span>Promotor: Prof. dr. Philippe De Vries</span>
+    <span>Medebeoordelaar: Prof. dr. Karolien Poels</span>
+  </div>
+  <div class="tiles" role="list">
+    <div class="tile" role="listitem"><span class="v">241</span><span class="k">Vlaamse respondenten van 18 tot 65 jaar, bevraagd van 5 tot 22 mei 2025</span></div>
+    <div class="tile" role="listitem"><span class="v neg">r = −.54</span><span class="k">Mediavertrouwen en complotdenken: het sterkste verband in de studie</span></div>
+    <div class="tile" role="listitem"><span class="v">33 %</span><span class="k">van de variantie in complotdenken verklaard door vier vertrouwensmaten (adj. R² = .327)</span></div>
+    <div class="tile" role="listitem"><span class="v">r = −.08</span><span class="k">Vertrouwen en wantrouwen hangen niet samen: geen tegenpolen</span></div>
+  </div>
+</header>
+
+<!-- 1 -->
+<section class="chap" id="context">
+  <div class="col">
+    <p class="num">01 · Context</p>
+    <h2>Een samenleving die zelf zegt de weg kwijt te raken</h2>
+    <p>Misleidende informatie is eeuwenoud, maar de schaal is nieuw. Sinds Web 2.0 is iedereen een <i>prosumer</i>: wie wil, publiceert. Het resultaat is een <i>information overload</i> waarin misinformatie (onbedoeld fout) en desinformatie (bewust misleidend) moeilijk van betrouwbare informatie te scheiden zijn. Het World Economic Forum rangschikte mis- en desinformatie in 2024 als grootste mondiale risico op korte termijn.</p>
+    <blockquote>“An obvious hallmark of a post-truth world is that it empowers people to choose their own reality, where facts and objective evidence are trumped by existing beliefs and prejudices.”<cite>Lewandowsky, Ecker &amp; Cook (2017, p. 361)</cite></blockquote>
+    <p>Internationaal is de link tussen wantrouwen en complotdenken goed gedocumenteerd. Voor Vlaanderen ontbrak empirisch onderzoek. Hoe ervaren de respondenten het zelf?</p>
+  </div>
+  <figure>
+    <p class="fig-title">Hoe respondenten het informatielandschap ervaren</p>
+    <div class="legend"><span><span class="sw" style="background:var(--accent)"></span>gemiddelde</span><span><span class="sw" style="background:var(--rule-strong);border-radius:2px;height:4px;width:16px"></span>± 1 standaardafwijking</span><span>│ neutraal midden (3)</span></div>
+    <div class="rows" id="perc"></div>
+    <figcaption>Vijfpunts-Likertschaal, 1 = volledig oneens, 5 = volledig eens. N = 241. Alle vijf de stellingen liggen boven het neutrale midden.</figcaption>
+  </figure>
+</section>
+
+<!-- 2 -->
+<section class="chap" id="model">
+  <div class="col">
+    <p class="num">02 · Theoretisch kader</p>
+    <h2>Wantrouwen als kern, misinformatie als brandstof</h2>
+    <p>De studie steunt op het socio-epistemisch tweecomponentenmodel van Pierre (2020). <b>Epistemisch wantrouwen</b> is daarin “een fundamenteel gebrek aan vertrouwen in de geloofwaardigheid, betrouwbaarheid en intenties van informatiebronnen”. Wie autoriteiten zoals media en overheid afwijst, belandt in een epistemisch vacuüm en zoekt elders naar antwoorden, waar <b>misinformatieverwerking</b> het overneemt.</p>
+  </div>
+  <figure class="diagram" aria-label="Socio-epistemisch model van Pierre (2020)">
+    <svg id="pierre" viewBox="0 0 900 380" role="img"></svg>
+    <figcaption>Herwerkt naar Pierre (2020). De gemarkeerde componenten zijn in deze studie gemeten; de grijze antecedenten en predisposities vallen buiten de reikwijdte.</figcaption>
+  </figure>
+  <div class="col">
+    <p><b>Onderzoeksvraag.</b> <i>In welke mate hangt een gebrek aan vertrouwen in instellingen samen met de neiging tot complotdenken bij Vlamingen tussen 18 en 65 jaar?</i></p>
+    <p>Afhankelijke variabele is complotdenken. Als predictoren dienen de drie subschalen van epistemisch vertrouwen (<i>trust</i>, <i>mistrust</i>, <i>credulity</i>) en mediavertrouwen. Sociaal mediagebruik, geslacht en leeftijd komen aan bod in verkennende analyses.</p>
+  </div>
+</section>
+
+<!-- 3 scrolly -->
+<section class="chap" id="steekproef">
+  <div class="col">
+    <p class="num">03 · Steekproef</p>
+    <h2>Wie vulde de vragenlijst in?</h2>
+    <p>Een online survey (Qualtrics), verspreid via sociale media, het netwerk van de Universiteit Antwerpen, scholen en Facebookgroepen. Scroll verder: elke stip is één respondent.</p>
+  </div>
+  <div class="scrolly">
+    <div class="stage" aria-hidden="false">
+      <svg id="dots" role="img" aria-label="Eenheidsgrafiek van de respondenten"></svg>
+      <p class="dotnote">Stippen tonen aantallen. Tussen de stappen is een stip niet telkens dezelfde persoon: de studie rapporteert geen kruistabellen.</p>
+    </div>
+    <div class="steps">
+      <div class="step" data-step="0"><h3>314 ingevulde vragenlijsten</h3><p>Dit is de bruto respons, voor enige selectie.</p></div>
+      <div class="step" data-step="1"><h3>73 respondenten vallen af</h3><p>26 woonden niet in Vlaanderen, 12 vielen buiten de leeftijdsgrens 18–65, 8 gingen niet akkoord met de voorwaarden en 27 maakten de vragenlijst niet af. Er blijven <b>241</b> respondenten over (foutenmarge ≈ 6,3 % bij 95 % betrouwbaarheid).</p></div>
+      <div class="step" data-step="2"><h3>Overwegend vrouwen</h3><p><b>178</b> respondenten (73,9 %) identificeerden zich als vrouw, 60 (24,9 %) als man, 2 als ‘anders’ en 1 zei het liever niet.</p></div>
+      <div class="step" data-step="3"><h3>Sterk hoogopgeleid</h3><p>Bachelor (<b>111</b>, 46,1 %) en master (<b>103</b>, 42,7 %) domineren. Slechts 24 respondenten hebben een secundair diploma als hoogste diploma; 3 een doctoraat. Daarom werd opleidingsniveau niet verder geanalyseerd.</p></div>
+      <div class="step" data-step="4"><h3>Jong, en dagelijks online</h3><p>Leeftijd 18–64 (<span class="stat">M = 34,4</span>, <span class="stat">Mdn = 30</span>, <span class="stat">SD = 14,0</span>); meer dan 60 % is jonger dan 30. De meest gekozen categorie voor dagelijks sociaal mediagebruik is <b>1 tot 2 uur</b> (66 respondenten); 13 gebruiken geen sociale media.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 measurement -->
+<section class="chap" id="meting">
+  <div class="col">
+    <p class="num">04 · Meting</p>
+    <h2>Drie schalen, vijf scores</h2>
+    <p><b>Mediavertrouwen</b>: vijf items uit de SV-bevraging van Statistiek Vlaanderen (tv, radio, kranten, nieuwssites, sociale media), aangevuld met een item over de overheid. <b>Epistemisch vertrouwen</b>: de <i>Epistemic Trust, Mistrust and Credulity Questionnaire</i> (ETMCQ; Campbell et al., 2021), terugvertaald naar het Nederlands, met 12 van de 15 items. <b>Complotdenken</b>: de <i>Generic Conspiracist Beliefs Scale-5</i> (GCB-5; Kay &amp; Slovic, 2023). Alle items op een vijfpuntsschaal.</p>
+  </div>
+  <div class="two">
+    <figure>
+      <p class="fig-title">Betrouwbaarheid (Cronbachs α) in deze steekproef</p>
+      <div class="legend"><span><span class="sw" style="background:var(--ink)"></span>α ≥ .70</span><span><span class="sw" style="background:var(--warn)"></span>α &lt; .70, voorzichtig interpreteren</span></div>
+      <div class="rows" id="alpha"></div>
+      <figcaption>De verticale lijn markeert de gangbare ondergrens van .70. Twee ETMCQ-subschalen scoren laag; vertaling, beperkte itemvariantie en slechts vier items per subschaal zijn mogelijke verklaringen.</figcaption>
+    </figure>
+    <figure>
+      <p class="fig-title">Gemiddelde scores op de schalen</p>
+      <div class="legend"><span><span class="sw" style="background:var(--accent)"></span>gemiddelde</span><span><span class="sw" style="background:var(--rule-strong);border-radius:2px;height:4px;width:16px"></span>± 1 SD</span></div>
+      <div class="rows" id="means"></div>
+      <figcaption>1 = laagste, 5 = hoogste aanwezigheid van het kenmerk. Complotdenken ligt gemiddeld laag (M = 2,26), maar met de grootste spreiding (SD = 0,91).</figcaption>
+    </figure>
+  </div>
+  <details class="tech">
+    <summary>Technische details: items en verdelingen</summary>
+    <div class="body">
+      <p><b>GCB-5</b> (α = .87): (1) de overheid staat terreurdaden toe of pleegt ze zelf; (2) bewijs van contact met buitenaardse wezens wordt verborgen; (3) nieuwe technologieën worden onderdrukt; (4) een kleine geheime groep manipuleert wereldgebeurtenissen; (5) experimenten met drugs of technologie worden zonder medeweten uitgevoerd op het publiek.</p>
+      <p><b>ETMCQ</b>: originele items 1, 3 en 6 werden verwijderd omdat ze zwak met hun subschaal correleerden (LIRA Lab, 2024). Origineel α = .70. Mediavertrouwen (6 items) haalt α = .88; het overheidsitem verhoogde de interne consistentie.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Variabele</th><th class="n">M</th><th class="n">SD</th><th class="n">Scheefheid</th><th class="n">Kurtosis</th></tr></thead>
+        <tbody>
+          <tr><td>Trust</td><td class="n">3,89</td><td class="n">0,45</td><td class="n">−.55</td><td class="n">1.02</td></tr>
+          <tr><td>Mistrust</td><td class="n">2,71</td><td class="n">0,59</td><td class="n">.44</td><td class="n">−.05</td></tr>
+          <tr><td>Credulity</td><td class="n">2,22</td><td class="n">0,73</td><td class="n">.65</td><td class="n">.41</td></tr>
+          <tr><td>Complotdenken</td><td class="n">2,26</td><td class="n">0,91</td><td class="n">.48</td><td class="n">−.57</td></tr>
+          <tr><td>Mediavertrouwen</td><td class="n">3,25</td><td class="n">0,77</td><td class="n">−.79</td><td class="n">.65</td></tr>
+          <tr><td>Leeftijd</td><td class="n">34,44</td><td class="n">13,97</td><td class="n">.63</td><td class="n">−1.07</td></tr>
+          <tr><td>Sociaal mediagebruik</td><td class="n">–</td><td class="n">–</td><td class="n">.77</td><td class="n">−.04</td></tr>
+        </tbody>
+      </table></div>
+      <p>Normaliteitstesten (Kolmogorov-Smirnov, Shapiro-Wilk) waren significant, maar scheefheid en kurtosis liggen binnen ±1 (behalve kurtosis van trust en leeftijd, net erbuiten) en de regressieresiduen benaderen de normaalverdeling.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 5 correlations -->
+<section class="chap" id="verbanden">
+  <div class="col">
+    <p class="num">05 · Samenhang</p>
+    <h2>Wie media en overheid wantrouwt, gelooft vaker in complotten</h2>
+    <p>Van alle verbanden is dat tussen mediavertrouwen en complotdenken veruit het sterkst: <span class="stat">r(239) = −.54, p &lt; .001</span>. Samen delen ze ongeveer 29 % van hun variantie. Ook <i>mistrust</i> (<span class="stat">r = .29</span>) en <i>credulity</i> (<span class="stat">r = .25</span>) hangen positief samen met complotdenken. Algemeen vertrouwen in anderen (<i>trust</i>) hangt er niet mee samen.</p>
+  </div>
+  <figure class="chart">
+    <p class="fig-title">Correlatie met complotdenken, met 95 %-betrouwbaarheidsinterval</p>
+    <div class="legend"><span><span class="sw" style="background:var(--neg)"></span>negatief verband</span><span><span class="sw" style="background:var(--pos)"></span>positief verband</span><span><span class="sw" style="background:var(--muted)"></span>niet significant</span></div>
+    <div id="forest"></div>
+    <figcaption>Pearson r, N = 241. Een interval dat de nullijn kruist, betekent dat het verband niet van nul te onderscheiden is.</figcaption>
+  </figure>
+  <figure class="chart">
+    <p class="fig-title">Alle onderlinge verbanden</p>
+    <div class="legend"><span>Kleurintensiteit = sterkte van r</span><span><span class="sw" style="background:var(--neg);border-radius:2px"></span>negatief</span><span><span class="sw" style="background:var(--pos);border-radius:2px"></span>positief</span><span>grijze tekst = niet significant</span></div>
+    <div id="matrix" style="max-width:640px"></div>
+    <figcaption>Beweeg over een cel voor de details. ‘n.g.’ = niet gerapporteerd in de thesis (wel niet significant).</figcaption>
+  </figure>
+  <details class="tech">
+    <summary>Technische details: correlatietabel</summary>
+    <div class="body">
+      <p>Pearson-correlaties, tweezijdig getoetst. Omdat de normaliteitsassumptie geschonden was, werd ook Spearmans ρ berekend; elk verband behield dezelfde significantie. De 95 %-intervallen zijn berekend via de Fisher z-transformatie op basis van de gerapporteerde r en N = 241.</p>
+      <div class="tbl-wrap"><table id="corrtable"><thead><tr><th>Verband</th><th class="n">r</th><th class="n">p</th><th class="n">95 %-BI</th><th class="n">r²</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </details>
+</section>
+
+<!-- 6 regression -->
+<section class="chap" id="regressie">
+  <div class="col">
+    <p class="num">06 · Regressie</p>
+    <h2>Twee predictoren dragen het model</h2>
+    <p>Een meervoudige regressie met de vier vertrouwensmaten verklaart een derde van de variantie in complotdenken (<span class="stat">F(4, 236) = 30,18, p &lt; .001</span>; <span class="stat">adj. R² = .327</span>). Wanneer de predictoren elkaar controleren, blijven er twee over: <b>mediavertrouwen</b> (<span class="stat">β = −.50</span>) en <b>mistrust</b> (<span class="stat">β = .18</span>). <i>Credulity</i> verliest zijn significantie: het verband met complotdenken loopt grotendeels via zijn overlap met wantrouwen.</p>
+  </div>
+  <div class="two">
+    <figure class="chart">
+      <p class="fig-title">Gestandaardiseerde regressiecoëfficiënten (β) met 95 %-BI</p>
+      <div id="beta"></div>
+      <figcaption>Afhankelijke variabele: complotdenken. Alle VIF-waarden ≤ 1,25: geen multicollineariteit.</figcaption>
+    </figure>
+    <figure class="chart">
+      <p class="fig-title">Verklaarde variantie</p>
+      <div id="waffle" style="max-width:300px"></div>
+      <figcaption>Elk vakje = 1 % van de variantie in complotdenken. Twee derde blijft onverklaard en ligt bij factoren buiten dit model.</figcaption>
+    </figure>
+  </div>
+
+  <div class="col"><h3>Speel met het model</h3>
+    <p class="small">Verschuif de schuifregelaars om te zien welke gemiddelde score op complotdenken het regressiemodel voorspelt. De andere predictoren blijven op hun ingestelde waarde staan. Dit is een beschrijving van samenhang in deze steekproef, geen causaal mechanisme en geen voorspelling voor één individu.</p>
+  </div>
+  <div class="sim" id="sim">
+    <div class="ctl" id="simctl"></div>
+    <div class="out">
+      <span class="eyebrow">Voorspelde score complotdenken (1–5)</span>
+      <span class="pred" id="predv">2,26</span>
+      <div class="chart" id="predbar"></div>
+      <span class="eyebrow" style="margin-top:6px">Bijdrage per predictor t.o.v. steekproefgemiddelde</span>
+      <div class="chart" id="contrib"></div>
+      <button class="btn" id="simreset" type="button">Terug naar gemiddelden</button>
+    </div>
+  </div>
+
+  <details class="tech">
+    <summary>Technische details: regressietabel en assumpties</summary>
+    <div class="body">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Predictor</th><th class="n">B</th><th class="n">SE B</th><th class="n">β</th><th class="n">t</th><th class="n">p</th><th class="n">VIF</th></tr></thead>
+        <tbody>
+          <tr><td>(constante)</td><td class="n">2,724</td><td class="n">0,535</td><td class="n">–</td><td class="n">5,091</td><td class="n">&lt; .001</td><td class="n">–</td></tr>
+          <tr><td>Trust</td><td class="n">0,144</td><td class="n">0,111</td><td class="n">.071</td><td class="n">1,302</td><td class="n">.194</td><td class="n">1,074</td></tr>
+          <tr><td>Mistrust</td><td class="n">0,276</td><td class="n">0,089</td><td class="n">.178</td><td class="n">3,099</td><td class="n">.002</td><td class="n">1,178</td></tr>
+          <tr><td>Credulity</td><td class="n">0,069</td><td class="n">0,073</td><td class="n">.056</td><td class="n">0,943</td><td class="n">.347</td><td class="n">1,248</td></tr>
+          <tr><td>Mediavertrouwen</td><td class="n">−0,594</td><td class="n">0,066</td><td class="n">−.501</td><td class="n">−9,008</td><td class="n">&lt; .001</td><td class="n">1,103</td></tr>
+        </tbody>
+      </table></div>
+      <p>Tolerantie &gt; .80; collineaire eigenwaarden en variantieproporties zonder problemen. Cook’s distance overal &lt; 1. Residuen benaderen de normaalverdeling; de spreidingsplot van gestandaardiseerde residuen toont geen trechterpatroon (homoscedasticiteit). De 95 %-intervallen voor β zijn afgeleid als β ± t<sub>.975; 236</sub> · SE<sub>B</sub> · (β / B). De voorspelling in de simulator is ŷ = 2,724 + 0,144·trust + 0,276·mistrust + 0,069·credulity − 0,594·mediavertrouwen; bij de (afgeronde) steekproefgemiddelden geeft dat 2,25, nagenoeg gelijk aan het geobserveerde gemiddelde van 2,26.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 7 paradox -->
+<section class="chap" id="sociale-media">
+  <div class="col">
+    <p class="num">07 · Sociale media</p>
+    <h2>Vertrouwen is niet het omgekeerde van wantrouwen</h2>
+    <p>De opvallendste bevinding: <i>trust</i> en <i>mistrust</i> correleren niet (<span class="stat">r = −.08, p = .230</span>). Het zijn geen twee uiteinden van één as, maar twee afzonderlijke dimensies. Dat verklaart waarom ze allebei positief samenhangen met sociaal mediagebruik. Wie meer tijd op sociale media doorbrengt, scoort iets hoger op vertrouwen, op wantrouwen én op goedgelovigheid.</p>
+  </div>
+  <div class="two">
+    <figure class="chart">
+      <p class="fig-title">Drie zwakke verbanden, één ontbrekend</p>
+      <div id="tri"></div>
+      <figcaption>Lijndikte volgt de sterkte van r. ** p &lt; .01, * p &lt; .05; grijs = niet significant.</figcaption>
+    </figure>
+    <figure class="chart">
+      <p class="fig-title">Dagelijks sociaal mediagebruik</p>
+      <div id="smbars"></div>
+      <figcaption>Aantal respondenten per antwoordcategorie (N = 241). Voor de analyses werd elke categorie omgezet naar haar middelpunt in minuten.</figcaption>
+    </figure>
+  </div>
+  <div class="col">
+    <h3>Perceptie versus data</h3>
+    <p>Respondenten zijn er bijna unaniem van overtuigd dat sociale media een belangrijke rol spelen in de verspreiding van misinformatie (<span class="stat">M = 4,54</span> op 5). Toch hangt hun eigen gebruiksduur niet samen met complotdenken (<span class="stat">r = .07</span>, n.s.) of met mediavertrouwen. Tijd op sociale media zegt weinig; wat en waar men leest, werd niet gemeten.</p>
+    <p>Sociaal mediagebruik daalt wel met de leeftijd (<span class="stat">r = −.48, p &lt; .001</span>) en ligt iets hoger bij vrouwen (<span class="stat">r = .15, p = .026</span>).</p>
+  </div>
+  <details class="tech">
+    <summary>Technische details: hercodering</summary>
+    <div class="body">
+      <p>Zeven categorieën met ongelijke intervallen werden herschaald naar een quasi-continue variabele: geen = 0, minder dan 30 minuten en 30–60 minuten samengevoegd tot 30, 1–2 uur = 90, 2–3 uur = 150, 3–4 uur = 210 en meer dan 4 uur = 300 minuten. Correlaties met sociaal mediagebruik: trust <span class="stat">r = .128, p = .047</span>; mistrust <span class="stat">r = .137, p = .033</span>; credulity <span class="stat">r = .194, p = .003</span>. Geslacht is gecodeerd als 1 = man, 2 = vrouw; de drie respondenten in de categorieën ‘anders’ en ‘zeg ik liever niet’ werden voor deze analyse uitgesloten.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 8 gender -->
+<section class="chap" id="geslacht">
+  <div class="col">
+    <p class="num">08 · Geslacht</p>
+    <h2>Vrouwen vertrouwen meer, wantrouwen minder, en geloven toch vaker</h2>
+    <p>Onafhankelijke t-toetsen tonen drie significante verschillen. Vrouwen scoren hoger op <i>trust</i> en lager op <i>mistrust</i>, maar hoger op complotdenken. De effecten zijn klein tot matig (Cohens d tussen 0,30 en 0,39). Voor mediavertrouwen en credulity was er geen verschil.</p>
+  </div>
+  <figure class="chart">
+    <p class="fig-title">Gemiddelde score per geslacht</p>
+    <div class="legend"><span><svg width="12" height="12" style="vertical-align:-1px;margin-right:6px"><circle cx="6" cy="6" r="4.5" fill="var(--bg)" stroke="var(--ink-2)" stroke-width="1.6"/></svg>man (n = 60)</span><span><svg width="12" height="12" style="vertical-align:-1px;margin-right:6px"><circle cx="6" cy="6" r="5" fill="var(--accent)"/></svg>vrouw (n = 178)</span></div>
+    <div id="gender" style="max-width:820px"></div>
+    <figcaption>As ingekort tot 2–4 om de verschillen leesbaar te maken. Levene’s test: gelijke varianties aangenomen voor alle variabelen.</figcaption>
+  </figure>
+</section>
+
+<!-- 9 limitations -->
+<section class="chap" id="beperkingen">
+  <div class="col">
+    <p class="num">09 · Beperkingen</p>
+    <h2>Wat deze data niet kunnen zeggen</h2>
+  </div>
+  <div class="lims">
+    <div class="lim"><span class="tag">Design</span><h3>Geen causaliteit</h3><p>Cross-sectionele surveydata tonen samenhang. Of wantrouwen tot complotdenken leidt, of omgekeerd, vereist longitudinaal of experimenteel onderzoek.</p></div>
+    <div class="lim"><span class="tag">Steekproef</span><h3>Gemakssteekproef</h3><p>74 % vrouw, 89 % hoger opgeleid, meer dan 60 % jonger dan 30. De resultaten zijn niet representatief voor de Vlaamse bevolking.</p></div>
+    <div class="lim"><span class="tag">Meting</span><h3>Lage betrouwbaarheid van twee subschalen</h3><p>Trust (α = .45) en mistrust (α = .53) zijn onbetrouwbaar gemeten na vertaling. Dat verzwakt hun correlaties en vraagt voorzichtigheid.</p></div>
+    <div class="lim"><span class="tag">Meting</span><h3>Grove antwoordcategorieën</h3><p>Eén mediakanaal ‘kranten’ maakt geen onderscheid tussen titels. GCB-item 5 kan ook gelezen worden als terechte bezorgdheid over surveillance.</p></div>
+    <div class="lim"><span class="tag">Datakwaliteit</span><h3>Controlevraag misbegrepen</h3><p>33 respondenten faalden op de aandachtscontrole, mogelijk omdat ze die als misleidend zagen. Ze bleven in de data; correlaties met en zonder hen verschilden niet in significantie of richting.</p></div>
+    <div class="lim"><span class="tag">Zelfrapportage</span><h3>Sociale wenselijkheid</h3><p>Vrijwillige deelname en een gevoelig onderwerp kunnen meer betrokken en kritische respondenten aantrekken en antwoorden kleuren.</p></div>
+  </div>
+</section>
+
+<!-- 10 conclusion -->
+<section class="chap" id="conclusie">
+  <div class="col">
+    <p class="num">10 · Conclusie</p>
+    <h2>Vertrouwen herstellen is de hefboom</h2>
+  </div>
+  <div class="synth">
+    <p>Bij deze Vlaamse respondenten is laag vertrouwen in media en overheid de sterkste correlaat van complotdenken, en epistemisch wantrouwen draagt daar onafhankelijk aan bij. Vertrouwen en wantrouwen blijken aparte dimensies: meer vertrouwen betekent niet automatisch minder wantrouwen.</p>
+    <p class="small">Dat sluit aan bij Pierre (2020): wanneer gezaghebbende stemmen wegvallen, ontstaat een epistemisch vacuüm. Implicaties: investeren in mediawijsheid vanaf jonge leeftijd, transparante en inclusieve communicatie door media en overheid, en platformverantwoordelijkheid. Wantrouwen is daarbij niet enkel de schuld van het individu. Replicatie met een representatieve, grotere steekproef, bijvoorbeeld via de SV-bevraging van Statistiek Vlaanderen (± 6 000 Vlamingen), is de logische volgende stap.</p>
+  </div>
+</section>
+
+<footer>
+  <p class="eyebrow">Selectie van referenties (APA 7)</p>
+  <ol class="refs">
+    <li>Campbell, C., Tanzer, M., Saunders, R., Booker, T., Allison, E., Li, E., O’Dowda, C., Luyten, P., &amp; Fonagy, P. (2021). Development and validation of a self-report measure of epistemic trust. <i>PLoS ONE, 16</i>(4), e0250264. https://doi.org/10.1371/journal.pone.0250264</li>
+    <li>Kay, C. S., &amp; Slovic, P. (2023). The generic conspiracist beliefs scale – 5: A short-form measure of conspiracist ideation. <i>Journal of Research in Personality, 102</i>, 104315. https://doi.org/10.1016/j.jrp.2022.104315</li>
+    <li>Lewandowsky, S., Ecker, U. K. H., &amp; Cook, J. (2017). Beyond misinformation: Understanding and coping with the “post-truth” era. <i>Journal of Applied Research in Memory and Cognition, 6</i>(4), 353–369. https://doi.org/10.1016/j.jarmac.2017.07.008</li>
+    <li>Pierre, J. M. (2020). Mistrust and misinformation: A two-component, socio-epistemic model of belief in conspiracy theories. <i>Journal of Social and Political Psychology, 8</i>(2), 617–641. https://doi.org/10.5964/jspp.v8i2.1362</li>
+    <li>Statistiek Vlaanderen. (2024). <i>Statistiek Vlaanderen-bevraging (SV-bevraging)</i>. https://www.vlaanderen.be/statistiek-vlaanderen/bevragingen/sv-bevraging</li>
+    <li>Van Sande, V. (2025). <i>De macht van misleiding: Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen</i> [Masterproef]. Universiteit Antwerpen.</li>
+    <li>World Economic Forum. (2024). <i>Global risks report 2024</i>. https://www.weforum.org/publications/global-risks-report-2024</li>
+  </ol>
+  <p class="small">Alle cijfers komen uit de masterproef. Betrouwbaarheidsintervallen voor r en β zijn hier bijkomend berekend uit de gerapporteerde waarden.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+const NS="http://www.w3.org/2000/svg";
+const N=241;
+const fmt=(x,d=2)=>{const s=Math.abs(x).toFixed(d).replace(/^0(?=\.)/,"");return (x<0?"−":"")+s;};
+const nl=(x,d=2)=>x.toFixed(d).replace(".",",").replace("-","−");
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs){if(k==="text")e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);}if(parent)parent.appendChild(e);return e;}
+function svgIn(container,w,h){container.innerHTML="";const s=el("svg",{viewBox:`0 0 ${w} ${h}`,width:w,height:h});s.style.width="100%";s.style.height="auto";container.appendChild(s);return s;}
+function fisherCI(r,n=N){const z=Math.atanh(r),se=1/Math.sqrt(n-3),c=1.959964;return [Math.tanh(z-c*se),Math.tanh(z+c*se)];}
+
+/* tooltip */
+const tip=document.getElementById("tip");
+function showTip(html,x,y){tip.innerHTML=html;tip.style.opacity=1;const r=tip.getBoundingClientRect();let L=x+14,T=y+14;if(L+r.width>innerWidth-8)L=x-r.width-14;if(T+r.height>innerHeight-8)T=y-r.height-14;tip.style.left=Math.max(8,L)+"px";tip.style.top=Math.max(8,T)+"px";}
+function hideTip(){tip.style.opacity=0;}
+document.addEventListener("pointermove",e=>{const t=e.target.closest&&e.target.closest("[data-tip]");if(t)showTip(t.getAttribute("data-tip"),e.clientX,e.clientY);else hideTip();});
+document.addEventListener("pointerdown",e=>{const t=e.target.closest&&e.target.closest("[data-tip]");if(t)showTip(t.getAttribute("data-tip"),e.clientX,e.clientY);else hideTip();});
+addEventListener("scroll",hideTip,{passive:true});
+
+/* progress */
+const prog=document.getElementById("prog");
+addEventListener("scroll",()=>{const h=document.documentElement;prog.style.width=(100*h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight))+"%";},{passive:true});
+
+/* ---------- Likert-style dot rows ---------- */
+function scaleRows(id,items,opt){
+  const box=document.getElementById(id);box.innerHTML="";
+  const lo=opt.lo,hi=opt.hi;
+  items.forEach(it=>{
+    const row=document.createElement("div");row.className="row";
+    const l=document.createElement("div");l.className="lbl";l.innerHTML=it.label+(it.sub?`<small>${it.sub}</small>`:"");row.appendChild(l);
+    const s=el("svg",{viewBox:"0 0 400 34",preserveAspectRatio:"none"});row.appendChild(s);
+    box.appendChild(row);
+  });
+  const axis=document.createElement("div");axis.className="axis-row";axis.innerHTML="<div></div>";
+  const as=el("svg",{viewBox:"0 0 400 30",preserveAspectRatio:"none"});axis.appendChild(as);box.appendChild(axis);
+  function draw(){
+    const svgs=box.querySelectorAll(".row svg");
+    const W=Math.max(200,(svgs[0]&&svgs[0].getBoundingClientRect().width)||400);
+    const pad=10,x=v=>pad+(v-lo)/(hi-lo)*(W-2*pad);
+    svgs.forEach((s,i)=>{
+      const it=items[i];s.setAttribute("viewBox",`0 0 ${W} 34`);s.innerHTML="";
+      el("line",{x1:x(lo),x2:x(hi),y1:17,y2:17,stroke:"var(--rule)","stroke-width":1},s);
+      opt.ticks.forEach(t=>el("line",{x1:x(t),x2:x(t),y1:12,y2:22,stroke:"var(--rule-strong)","stroke-width":1},s));
+      if(opt.ref!=null)el("line",{x1:x(opt.ref),x2:x(opt.ref),y1:11,y2:26,stroke:"var(--ink-2)","stroke-width":1},s);
+      if(it.sd!=null){const a=Math.max(lo,it.m-it.sd),b=Math.min(hi,it.m+it.sd);el("rect",{x:x(a),y:14,width:x(b)-x(a),height:6,rx:3,fill:"var(--rule-strong)"},s);}
+      const col=it.color||"var(--accent)";
+      if(it.m2!=null){el("circle",{cx:x(it.m2),cy:17,r:6,fill:"var(--ink-2)",opacity:.35},s);}
+      const c=el("circle",{cx:x(it.m),cy:17,r:6.5,fill:col,stroke:"var(--bg)","stroke-width":2,"data-tip":it.tip},s);
+      el("circle",{cx:x(it.m),cy:17,r:16,fill:"transparent","data-tip":it.tip},s);
+      const tx=x(it.m),anchor=tx>W-60?"end":"start",dx=anchor==="end"?-12:12;
+      el("text",{x:tx+dx,y:8,"text-anchor":anchor,"font-family":"var(--f-data)","font-size":11,fill:"var(--ink-2)",text:it.valText},s);
+    });
+    as.setAttribute("viewBox",`0 0 ${W} 30`);as.innerHTML="";
+    opt.ticks.forEach(t=>el("text",{x:x(t),y:13,"text-anchor":"middle","font-family":"var(--f-data)","font-size":11,fill:"var(--muted)",text:opt.tickFmt?opt.tickFmt(t):String(t)},as));
+    if(opt.axisL)el("text",{x:x(lo),y:27,"text-anchor":"start","font-size":10.5,fill:"var(--muted)",text:opt.axisL},as);
+    if(opt.axisR)el("text",{x:x(hi),y:27,"text-anchor":"end","font-size":10.5,fill:"var(--muted)",text:opt.axisR},as);
+  }
+  return draw;
+}
+
+const percItems=[
+  ["Ik geloof dat sociale media een belangrijke rol spelen in de verspreiding van foutieve of misleidende informatie.",4.54,.67,5],
+  ["Ik heb het gevoel dat ik tegenwoordig vaker misinformatie tegenkom dan vroeger.",4.21,.82,4],
+  ["Ik zou het nuttig vinden om over meer tools of tips te beschikken om misinformatie sneller te herkennen.",4.02,.94,4],
+  ["Ik vind het steeds moeilijker om te bepalen wat waar is in de media.",3.69,.98,4],
+  ["Ik vertrouw op factchecks wanneer ze extra context toevoegen aan berichten op sociale media.",3.43,.96,4]
+].map(([l,m,sd,md])=>({label:l,m,sd,valText:nl(m),tip:`<b>${l}</b><br><span class="mono">M = ${nl(m)} · Mdn = ${md} · SD = ${nl(sd)}</span>`}));
+const drawPerc=scaleRows("perc",percItems,{lo:1,hi:5,ticks:[1,2,3,4,5],ref:3,axisL:"volledig oneens",axisR:"volledig eens"});
+
+const alphaItems=[
+  {label:"Mediavertrouwen",sub:"6 items · eigen samenstelling",m:.88},
+  {label:"Complotdenken",sub:"GCB-5 · 5 items · origineel .71–.80",m:.87},
+  {label:"Credulity",sub:"ETMCQ · 4 items",m:.72},
+  {label:"Mistrust",sub:"ETMCQ · 4 items",m:.53},
+  {label:"Trust",sub:"ETMCQ · 4 items",m:.45}
+].map(d=>({...d,color:d.m>=.7?"var(--ink)":"var(--warn)",valText:"α = "+fmt(d.m),tip:`<b>${d.label}</b><br><span class="mono">α = ${fmt(d.m)}</span>${d.m<.7?"<br>Onder de grens van .70":""}`}));
+const drawAlpha=scaleRows("alpha",alphaItems,{lo:0,hi:1,ticks:[0,.25,.5,.75,1],ref:.7,tickFmt:t=>t===0?"0":t===1?"1":fmt(t)});
+
+const meanItems=[
+  {label:"Trust",sub:"vertrouwen in anderen",m:3.89,sd:.45},
+  {label:"Mediavertrouwen",sub:"media en overheid",m:3.25,sd:.77},
+  {label:"Mistrust",sub:"wantrouwen",m:2.71,sd:.59},
+  {label:"Complotdenken",sub:"GCB-5",m:2.26,sd:.91},
+  {label:"Credulity",sub:"goedgelovigheid",m:2.22,sd:.73}
+].map(d=>({...d,valText:nl(d.m),tip:`<b>${d.label}</b><br><span class="mono">M = ${nl(d.m)} · SD = ${nl(d.sd)}</span>`}));
+const drawMeans=scaleRows("means",meanItems,{lo:1,hi:5,ticks:[1,2,3,4,5],ref:3,axisL:"laag",axisR:"hoog"});
+
+/* ---------- Pierre diagram ---------- */
+function drawPierre(){
+  const s=document.getElementById("pierre");s.innerHTML="";
+  const defs=el("defs",{},s);
+  ["ink","mut"].forEach(k=>{const m=el("marker",{id:"ar-"+k,viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"},defs);el("path",{d:"M0,0 L10,5 L0,10 z",fill:k==="ink"?"var(--ink)":"var(--rule-strong)"},m);});
+  const top=[["Schending van vertrouwen",110],["Dreiging, trauma, onzekerheid",340],["Racisme, xenofobie",560],["Achterdocht, paranoia",790]];
+  const bot=[["Need for closure, zekerheid, controle",110],["Need for uniqueness",340],["Confirmation & attributiebias",560],["Weinig analytisch denken",790]];
+  const box=(x,y,w,h,label,on,sub)=>{el("rect",{x:x-w/2,y:y-h/2,width:w,height:h,rx:3,fill:on?"var(--surface)":"transparent",stroke:on?"var(--accent)":"var(--rule-strong)","stroke-width":on?1.6:1},s);el("text",{x,y:y+(sub?-2:5),"text-anchor":"middle","font-family":"var(--f-display)","font-weight":600,"font-size":17,fill:"var(--ink)",text:label},s);if(sub)el("text",{x,y:y+17,"text-anchor":"middle","font-family":"var(--f-data)","font-size":11,fill:"var(--accent)",text:sub},s);};
+  top.forEach(([t,x])=>{el("text",{x,y:36,"text-anchor":"middle","font-size":13,fill:"var(--muted)",text:t},s);el("line",{x1:x,y1:48,x2:450+(x-450)*.28,y2:118,stroke:"var(--rule-strong)","stroke-width":1,"marker-end":"url(#ar-mut)"},s);});
+  bot.forEach(([t,x])=>{el("text",{x,y:360,"text-anchor":"middle","font-size":13,fill:"var(--muted)",text:t},s);el("line",{x1:x,y1:340,x2:450+(x-450)*.28,y2:272,stroke:"var(--rule-strong)","stroke-width":1,"marker-end":"url(#ar-mut)"},s);});
+  box(450,146,330,52,"Epistemisch wantrouwen",true,"gemeten: mistrust · trust · mediavertrouwen");
+  box(450,244,330,52,"Misinformatieverwerking",true,"gemeten: credulity · complotdenken (GCB-5)");
+  el("line",{x1:438,y1:173,x2:438,y2:216,stroke:"var(--ink)","stroke-width":2,"marker-end":"url(#ar-ink)"},s);
+  el("line",{x1:462,y1:216,x2:462,y2:174,stroke:"var(--ink)","stroke-width":1,"marker-end":"url(#ar-ink)"},s);
+}
+
+/* ---------- Scrolly dots ---------- */
+const dotsSvg=document.getElementById("dots");
+const TOTAL=314;
+const STEPS=[
+  {groups:[{label:"Bruto respons",n:314}],hl:[0]},
+  {groups:[{label:"Behouden",n:241},{label:"Niet in Vlaanderen",n:26,x:1},{label:"Buiten 18–65",n:12,x:1},{label:"Geen akkoord",n:8,x:1},{label:"Onvolledig",n:27,x:1}],hl:[0]},
+  {groups:[{label:"Vrouw",n:178},{label:"Man",n:60},{label:"Anders",n:2},{label:"Liever niet",n:1}],hl:[0]},
+  {groups:[{label:"Secundair",n:24},{label:"Bachelor",n:111},{label:"Master",n:103},{label:"Doctoraat",n:3}],hl:[1,2]},
+  {groups:[{label:"Geen",n:13},{label:"<30 min",n:24},{label:"30–60 min",n:55},{label:"1–2 u",n:66},{label:"2–3 u",n:50},{label:"3–4 u",n:24},{label:">4 u",n:9}],hl:[3]}
+];
+let curStep=0,dotEls=[],dotW=0;
+function layoutStep(si,W){
+  const st=STEPS[si],G=st.groups.length,gap=G>4?10:18,H=W<520?300:360,labelH=40;
+  let best=null;
+  for(let s=18;s>=5;s-=.5){for(let c=1;c<=40;c++){const gw=c*s,tw=G*gw+(G-1)*gap;if(tw>W)break;const maxN=Math.max(...st.groups.map(g=>g.n));const h=Math.ceil(maxN/c)*s;if(h<=H-labelH){const minLabel=G>4?52:64;if(gw<minLabel&&G>1)continue;best={s,c};break;}}if(best)break;}
+  if(!best)best={s:5,c:Math.ceil(TOTAL/40)};
+  const {s,c}=best,gw=c*s,tw=G*gw+(G-1)*gap,x0=(W-tw)/2,base=H-labelH;
+  const pos=[],labels=[];let k=0;
+  st.groups.forEach((g,gi)=>{const gx=x0+gi*(gw+gap);for(let i=0;i<g.n;i++){const col=i%c,row=Math.floor(i/c);pos.push({x:gx+col*s+s/2,y:base-row*s-s/2,r:Math.max(1.6,s*.36),g:gi,ex:!!g.x});k++;}
+    labels.push({x:gx+gw/2,y:base+16,label:g.label,n:g.n,top:base-Math.ceil(g.n/c)*s-8,hl:st.hl.includes(gi),ex:!!g.x});});
+  return {pos,labels,H,total:k};
+}
+function renderDots(force){
+  const W=Math.round(Math.max(300,Math.min(680,dotsSvg.parentElement.getBoundingClientRect().width)));
+  const L=layoutStep(curStep,W);
+  if(force||W!==dotW||!dotEls.length){
+    dotW=W;dotsSvg.setAttribute("viewBox",`0 0 ${W} ${L.H}`);dotsSvg.innerHTML="";dotEls=[];
+    for(let i=0;i<TOTAL;i++){const c=el("circle",{class:"dot",cx:0,cy:0,r:3},dotsSvg);dotEls.push(c);}
+    el("g",{id:"glabels"},dotsSvg);
+  }
+  dotsSvg.setAttribute("viewBox",`0 0 ${W} ${L.H}`);
+  const st=STEPS[curStep];
+  dotEls.forEach((d,i)=>{
+    const p=L.pos[i];
+    if(p){d.style.transform=`translate(${p.x}px,${p.y}px)`;d.setAttribute("r",p.r);d.style.opacity=1;
+      d.style.fill=p.ex?"var(--rule-strong)":(st.hl.includes(p.g)?"var(--accent)":"var(--ink-2)");
+      if(!st.hl.includes(p.g)&&!p.ex)d.style.opacity=.55;}
+    else{d.style.opacity=0;}
+  });
+  const g=dotsSvg.querySelector("#glabels");g.innerHTML="";
+  const small=W<480;
+  L.labels.forEach(l=>{
+    el("text",{x:l.x,y:l.y,"text-anchor":"middle","font-size":small?10.5:12,fill:l.ex?"var(--muted)":"var(--ink)","font-weight":l.hl?600:400,class:"glabel",text:l.label},g);
+    const pct=curStep===1?"":` · ${nl(100*l.n/(curStep===0?314:241),1)}%`;
+    el("text",{x:l.x,y:l.y+15,"text-anchor":"middle","font-family":"var(--f-data)","font-size":small?9.5:11,fill:"var(--muted)",class:"glabel",text:(curStep===0?"n = ":"")+l.n+(small||curStep===0?"":pct)},g);
+  });
+}
+function setStep(i){if(i===curStep)return;curStep=i;document.querySelectorAll(".step").forEach(s=>s.classList.toggle("on",+s.dataset.step===i));renderDots(false);}
+document.querySelector('.step[data-step="0"]').classList.add("on");
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)setStep(+e.target.dataset.step);});},{rootMargin:"-45% 0px -45% 0px"});
+  document.querySelectorAll(".step").forEach(s=>io.observe(s));
+}
+
+/* ---------- correlations ---------- */
+const V=["MV","T","M","C","GCB","SM"];
+const VN={MV:"Mediavertrouwen",T:"Trust",M:"Mistrust",C:"Credulity",GCB:"Complotdenken",SM:"Sociaal mediagebruik"};
+const VS={MV:"Mediavertr.",T:"Trust",M:"Mistrust",C:"Credulity",GCB:"Complotd.",SM:"Soc. media"};
+const COR=[
+  ["MV","GCB",-.542,"< .001"],["M","GCB",.292,"< .001"],["C","M",.350,"< .001"],["C","GCB",.252,"< .001"],
+  ["C","MV",-.243,"< .001"],["M","MV",-.200,".002"],["C","T",.167,".009"],["T","GCB",.010,".878"],
+  ["T","MV",.114,".078"],["M","T",-.078,".230"],["SM","T",.128,".047"],["SM","M",.137,".033"],["SM","C",.194,".003"],
+  ["SM","GCB",.07,"n.s."],["SM","MV",null,"n.s."]
+];
+const sig=p=>p!=="n.s."&&parseFloat(p.replace("< ",""))<.05;
+const stars=p=>{if(!sig(p))return"";const v=parseFloat(p.replace("< ",""));return v<.01?"**":"*";};
+function getCor(a,b){return COR.find(c=>(c[0]===a&&c[1]===b)||(c[0]===b&&c[1]===a));}
+// table
+(function(){const tb=document.querySelector("#corrtable tbody");COR.forEach(([a,b,r,p])=>{const tr=document.createElement("tr");if(r==null){tr.innerHTML=`<td>${VN[a]} ↔ ${VN[b]}</td><td class="n">n.g.</td><td class="n">n.s.</td><td class="n">–</td><td class="n">–</td>`;}else{const [lo,hi]=fisherCI(r);tr.innerHTML=`<td>${VN[a]} ↔ ${VN[b]}</td><td class="n">${fmt(r,r===.07?2:3)}${stars(p)}</td><td class="n">${p}</td><td class="n">[${fmt(lo)}, ${fmt(hi)}]</td><td class="n">${fmt(r*r,3)}</td>`;}tb.appendChild(tr);});})();
+
+function strength(r){const a=Math.abs(r);return a<.1?"verwaarloosbaar":a<.3?"zwak":a<.5?"matig":"sterk";}
+function corTip(a,b,r,p){if(r==null)return`<b>${VN[a]} ↔ ${VN[b]}</b><br>Niet significant; waarde niet gerapporteerd.`;const [lo,hi]=fisherCI(r);return`<b>${VN[a]} ↔ ${VN[b]}</b><br><span class="mono">r = ${fmt(r)} · p ${p.startsWith("<")||p==="n.s."?p:"= "+p}<br>95 %-BI [${fmt(lo)}, ${fmt(hi)}]<br>gedeelde variantie ${nl(100*r*r,1)} %</span><br>${sig(p)?strength(r)+(r<0?", negatief":", positief"):"niet significant"}`;}
+
+function drawForest(){
+  const box=document.getElementById("forest");const W=Math.max(320,Math.min(880,box.getBoundingClientRect().width||600));
+  const rows=["MV","M","C","SM","T"].map(k=>{const c=getCor(k,"GCB");return{k,r:c[2],p:c[3]};}).sort((a,b)=>a.r-b.r);
+  const narrow=W<520,lw=narrow?96:150,rw=narrow?0:150,rh=40,H=rows.length*rh+34;
+  const s=svgIn(box,W,H);const lo=-.8,hi=.6,x=v=>lw+(v-lo)/(hi-lo)*(W-lw-rw-10);
+  [-.8,-.6,-.4,-.2,0,.2,.4,.6].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:4,y2:H-26,stroke:t===0?"var(--ink-2)":"var(--rule)","stroke-width":1},s);el("text",{x:x(t),y:H-10,"text-anchor":"middle","font-family":"var(--f-data)","font-size":11,fill:"var(--muted)",text:t===0?"0":fmt(t,1)},s);});
+  rows.forEach((d,i)=>{const y=i*rh+rh/2+4;const [l,h]=fisherCI(d.r);const S=sig(d.p);const col=!S?"var(--muted)":d.r<0?"var(--neg)":"var(--pos)";
+    el("text",{x:lw-12,y:y+4,"text-anchor":"end","font-size":narrow?12:13.5,fill:"var(--ink)",text:narrow?VS[d.k]:VN[d.k]},s);
+    el("line",{x1:x(l),x2:x(h),y1:y,y2:y,stroke:col,"stroke-width":2,"stroke-linecap":"round"},s);
+    el("circle",{cx:x(d.r),cy:y,r:6,fill:col,stroke:"var(--bg)","stroke-width":2},s);
+    el("rect",{x:lw,y:y-rh/2,width:W-lw,height:rh,fill:"transparent","data-tip":corTip(d.k,"GCB",d.r,d.p)},s);
+    if(!narrow)el("text",{x:W-rw+6,y:y+4,"font-family":"var(--f-data)","font-size":12,fill:S?"var(--ink)":"var(--muted)",text:`r = ${fmt(d.r)}${stars(d.p)}`},s);
+    else el("text",{x:x(d.r),y:y-10,"text-anchor":"middle","font-family":"var(--f-data)","font-size":10.5,fill:S?"var(--ink-2)":"var(--muted)",text:fmt(d.r)},s);
+  });
+}
+
+function drawMatrix(){
+  const box=document.getElementById("matrix");const W=Math.max(320,Math.min(640,box.getBoundingClientRect().width||600));
+  const lab=W<480?78:108,n=V.length-1,cell=Math.floor((W-lab-4)/n),H=n*cell+70;
+  const s=svgIn(box,W,H);
+  V.slice(1).forEach((a,ii)=>{const i=ii+1;
+    el("text",{x:lab-8,y:ii*cell+cell/2+4,"text-anchor":"end","font-size":W<480?10.5:12,fill:"var(--ink)",text:VS[a]},s);
+    V.forEach((b,j)=>{
+      if(j>=i)return;
+      const c=getCor(a,b);const x0=lab+j*cell,y0=ii*cell;
+      const r=c?c[2]:null,p=c?c[3]:"n.s.";
+      let fill="var(--cell0)",txtCol="var(--muted)";
+      if(r!=null&&sig(p)){const pct=Math.min(100,Math.round(Math.abs(r)/.6*100));fill=`color-mix(in oklab, ${r<0?"var(--neg)":"var(--pos)"} ${pct}%, var(--cell0))`;txtCol=pct>55?"var(--on-strong)":"var(--ink)";}
+      const rect=el("rect",{x:x0+1,y:y0+1,width:cell-2,height:cell-2,rx:2,"data-tip":corTip(a,b,r,p)},s);rect.style.fill=fill;
+      const t=el("text",{x:x0+cell/2,y:y0+cell/2+4,"text-anchor":"middle","font-family":"var(--f-data)","font-size":cell<50?10.5:12.5,"pointer-events":"none",text:r==null?"n.g.":fmt(r)+stars(p)},s);t.style.fill=txtCol;
+    });
+  });
+  V.slice(0,-1).forEach((b,j)=>{const tx=lab+j*cell+cell/2,ty=n*cell+12;el("text",{x:tx,y:ty,"text-anchor":"end",transform:`rotate(-40 ${tx} ${ty})`,"font-size":W<480?10.5:12,fill:"var(--ink)",text:VS[b]},s);});
+}
+
+/* ---------- regression ---------- */
+const REG=[
+  {k:"MV",B:-.594,SE:.066,b:-.501,t:-9.008,p:"< .001",mean:3.25,sd:.77},
+  {k:"M",B:.276,SE:.089,b:.178,t:3.099,p:".002",mean:2.71,sd:.59},
+  {k:"T",B:.144,SE:.111,b:.071,t:1.302,p:".194",mean:3.89,sd:.45},
+  {k:"C",B:.069,SE:.073,b:.056,t:.943,p:".347",mean:2.22,sd:.73}
+];
+const TCRIT=1.9701;
+function drawBeta(){
+  const box=document.getElementById("beta");const W=Math.max(300,Math.min(560,box.getBoundingClientRect().width||500));
+  const narrow=W<440,lw=narrow?84:128,rh=44,H=REG.length*rh+34;const s=svgIn(box,W,H);
+  const lo=-.7,hi=.4,x=v=>lw+(v-lo)/(hi-lo)*(W-lw-12);
+  [-.6,-.4,-.2,0,.2,.4].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:4,y2:H-26,stroke:t===0?"var(--ink-2)":"var(--rule)","stroke-width":1},s);el("text",{x:x(t),y:H-10,"text-anchor":"middle","font-family":"var(--f-data)","font-size":11,fill:"var(--muted)",text:t===0?"0":fmt(t,1)},s);});
+  REG.forEach((d,i)=>{const y=i*rh+rh/2+4,seb=d.SE*d.b/d.B,l=d.b-TCRIT*seb,h=d.b+TCRIT*seb,S=sig(d.p),col=!S?"var(--muted)":d.b<0?"var(--neg)":"var(--pos)";
+    el("text",{x:lw-12,y:y+4,"text-anchor":"end","font-size":narrow?12:13.5,fill:"var(--ink)",text:narrow?VS[d.k]:VN[d.k]},s);
+    el("line",{x1:x(l),x2:x(h),y1:y,y2:y,stroke:col,"stroke-width":2,"stroke-linecap":"round"},s);
+    el("circle",{cx:x(d.b),cy:y,r:6,fill:col,stroke:"var(--bg)","stroke-width":2},s);
+    const lx=d.b<0?x(h)+8:x(h)+8;
+    el("text",{x:lx,y:y+4,"font-family":"var(--f-data)","font-size":11,fill:S?"var(--ink-2)":"var(--muted)",text:`β = ${fmt(d.b)}${stars(d.p)}`},s);
+    el("rect",{x:lw,y:y-rh/2,width:W-lw,height:rh,fill:"transparent","data-tip":`<b>${VN[d.k]}</b><br><span class="mono">B = ${nl(d.B,3)} (SE ${nl(d.SE,3)})<br>β = ${fmt(d.b,3)} · t = ${nl(d.t,3)} · p ${d.p.startsWith("<")?d.p:"= "+d.p}<br>95 %-BI β [${fmt(l)}, ${fmt(h)}]</span>`},s);
+  });
+}
+function drawWaffle(){
+  const box=document.getElementById("waffle");const W=Math.max(200,Math.min(300,box.getBoundingClientRect().width||300));
+  const cell=(W-2)/10,H=cell*10+44;const s=svgIn(box,W,H);
+  for(let i=0;i<100;i++){const col=i%10,row=9-Math.floor(i/10);const on=i<33;
+    el("rect",{x:col*cell+1.5,y:row*cell+1.5,width:cell-3,height:cell-3,rx:2,fill:on?"var(--accent)":"var(--cell0)","data-tip":on?"Verklaard door het model":"Onverklaard"},s);}
+  el("text",{x:0,y:cell*10+24,"font-family":"var(--f-data)","font-size":20,fill:"var(--ink)",text:"32,7 %"},s);
+  el("text",{x:84,y:cell*10+24,"font-size":12,fill:"var(--muted)",text:"adj. R² = .327"},s);
+}
+
+/* simulator */
+const CONST=2.724;const simVals={};
+const SIMDEF=[{k:"MV",lab:"Mediavertrouwen"},{k:"M",lab:"Mistrust"},{k:"T",lab:"Trust"},{k:"C",lab:"Credulity"}];
+const regBy=k=>REG.find(r=>r.k===k);
+function buildSim(){
+  const ctl=document.getElementById("simctl");ctl.innerHTML="";
+  SIMDEF.forEach(d=>{const r=regBy(d.k);simVals[d.k]=r.mean;
+    const wrap=document.createElement("div");
+    wrap.innerHTML=`<label for="sim-${d.k}"><span>${d.lab}</span><span class="mono" id="sv-${d.k}">${nl(r.mean)}</span></label><input type="range" id="sim-${d.k}" min="1" max="5" step="0.05" value="${r.mean}" aria-describedby="sf-${d.k}"><div class="flag" id="sf-${d.k}"></div>`;
+    ctl.appendChild(wrap);
+    wrap.querySelector("input").addEventListener("input",e=>{simVals[d.k]=+e.target.value;updSim();});
+  });
+  const note=document.createElement("p");note.className="small";note.textContent="Startwaarden = steekproefgemiddelden. Waarden verder dan 2 SD van het gemiddelde vallen buiten het gros van de data.";ctl.appendChild(note);
+  document.getElementById("simreset").addEventListener("click",()=>{SIMDEF.forEach(d=>{const r=regBy(d.k);simVals[d.k]=r.mean;document.getElementById("sim-"+d.k).value=r.mean;});updSim();});
+}
+function updSim(){
+  let y=CONST;SIMDEF.forEach(d=>{y+=regBy(d.k).B*simVals[d.k];});
+  SIMDEF.forEach(d=>{const r=regBy(d.k),v=simVals[d.k];document.getElementById("sv-"+d.k).textContent=nl(v);
+    document.getElementById("sf-"+d.k).textContent=Math.abs(v-r.mean)>2*r.sd?"Buiten ±2 SD: extrapolatie":"";});
+  const yc=Math.max(1,Math.min(5,y));
+  document.getElementById("predv").textContent=nl(yc)+(y<1?" (afgekapt)":y>5?" (afgekapt)":"");
+  drawPredBar(yc);drawContrib();
+}
+function drawPredBar(y){
+  const box=document.getElementById("predbar");const W=Math.max(240,Math.min(520,box.getBoundingClientRect().width||400));const H=50;const s=svgIn(box,W,H);
+  const x=v=>10+(v-1)/4*(W-20);
+  el("line",{x1:x(1),x2:x(5),y1:22,y2:22,stroke:"var(--rule-strong)","stroke-width":1},s);
+  [1,2,3,4,5].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:17,y2:27,stroke:"var(--rule-strong)"},s);el("text",{x:x(t),y:44,"text-anchor":"middle","font-family":"var(--f-data)","font-size":11,fill:"var(--muted)",text:t},s);});
+  el("line",{x1:x(2.26),x2:x(2.26),y1:8,y2:36,stroke:"var(--ink-2)","stroke-width":1},s);
+  el("text",{x:x(2.26)+(x(2.26)>W-100?-4:4),y:10,"text-anchor":x(2.26)>W-100?"end":"start","font-size":10.5,fill:"var(--muted)",text:"steekproef M = 2,26"},s);
+  el("circle",{cx:x(y),cy:22,r:8,fill:"var(--accent)",stroke:"var(--surface)","stroke-width":2},s);
+}
+function drawContrib(){
+  const box=document.getElementById("contrib");const W=Math.max(240,Math.min(520,box.getBoundingClientRect().width||400));
+  const rh=24,lw=112,H=SIMDEF.length*rh+6;const s=svgIn(box,W,H);const m=1.6,cx=lw+(W-lw-50)/2,x=v=>cx+v/m*((W-lw-50)/2);
+  el("line",{x1:cx,x2:cx,y1:0,y2:H,stroke:"var(--ink-2)"},s);
+  SIMDEF.forEach((d,i)=>{const r=regBy(d.k),c=r.B*(simVals[d.k]-r.mean),y=i*rh+rh/2+2;
+    el("text",{x:lw-10,y:y+4,"text-anchor":"end","font-size":12,fill:"var(--ink)",text:d.lab},s);
+    const a=Math.min(x(0),x(c)),w=Math.abs(x(c)-x(0));
+    el("rect",{x:a,y:y-6,width:Math.max(w,0.5),height:12,rx:2,fill:"var(--ink-2)",opacity:sig(r.p)?.9:.4},s);
+    el("text",{x:c<0?a-4:a+w+4,y:y+4,"text-anchor":c<0?"end":"start","font-family":"var(--f-data)","font-size":10.5,fill:"var(--ink-2)",text:(c>=0?"+":"")+nl(c)},s);
+  });
+}
+
+/* ---------- triangle ---------- */
+function drawTri(){
+  const box=document.getElementById("tri");const W=Math.max(300,Math.min(520,box.getBoundingClientRect().width||460));const H=Math.round(W*.78);const s=svgIn(box,W,H);
+  const P={SM:[W/2,40],T:[W*.16,H-46],M:[W*.84,H-46]};
+  const E=[["SM","T",.128,"*"],["SM","M",.137,"*"],["T","M",-.078,""]];
+  E.forEach(([a,b,r,st])=>{const [x1,y1]=P[a],[x2,y2]=P[b];const S=st!=="";const col=S?(r<0?"var(--neg)":"var(--pos)"):"var(--rule-strong)";
+    el("line",{x1,y1,x2,y2,stroke:col,"stroke-width":S?2+Math.abs(r)*20:1.5,"stroke-linecap":"round"},s);
+    const mx=(x1+x2)/2,my=(y1+y2)/2;const off=b==="M"&&a==="T"?18:0;
+    const t=el("text",{x:mx+(a==="SM"?(b==="T"?-14:14):0),y:my+off+(a==="SM"?0:0),"text-anchor":a==="SM"?(b==="T"?"end":"start"):"middle","font-family":"var(--f-data)","font-size":12,fill:S?"var(--ink)":"var(--muted)",text:`r = ${fmt(r)}${st}${S?"":" (n.s.)"}`},s);
+    el("line",{x1,y1,x2,y2,stroke:"transparent","stroke-width":22,"data-tip":corTip(a,b,r,S?(a==="SM"&&b==="T"?".047":".033"):".230")},s);
+  });
+  Object.entries(P).forEach(([k,[x,y]])=>{const lab=k==="SM"?"Sociaal mediagebruik":VN[k];const w=k==="SM"?170:96;
+    el("rect",{x:x-w/2,y:y-15,width:w,height:30,rx:15,fill:"var(--surface)",stroke:"var(--ink-2)","stroke-width":1},s);
+    el("text",{x,y:y+5,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-weight":600,text:lab},s);});
+  el("text",{x:W/2,y:H-6,"text-anchor":"middle","font-size":11,fill:"var(--muted)",text:"Credulity ↔ sociaal mediagebruik: r = .19**"},s);
+}
+function drawSM(){
+  const box=document.getElementById("smbars");const W=Math.max(300,Math.min(560,box.getBoundingClientRect().width||460));const H=240;const s=svgIn(box,W,H);
+  const D=[["Geen",13],["<30 min",24],["30–60 min",55],["1–2 u",66],["2–3 u",50],["3–4 u",24],[">4 u",9]];
+  const top=20,bot=H-44,y=v=>bot-(v/70)*(bot-top),n=D.length,gw=(W-30)/n,bw=Math.min(40,gw-8);
+  [0,20,40,60].forEach(t=>{el("line",{x1:28,x2:W,y1:y(t),y2:y(t),stroke:t===0?"var(--rule-strong)":"var(--rule)"},s);el("text",{x:22,y:y(t)+4,"text-anchor":"end","font-family":"var(--f-data)","font-size":10.5,fill:"var(--muted)",text:t},s);});
+  D.forEach(([l,v],i)=>{const cx=30+gw*i+gw/2,x0=cx-bw/2,y0=y(v),r=Math.min(4,bw/2);
+    el("path",{d:`M${x0},${bot} V${y0+r} Q${x0},${y0} ${x0+r},${y0} H${x0+bw-r} Q${x0+bw},${y0} ${x0+bw},${y0+r} V${bot} Z`,fill:i===3?"var(--accent)":"var(--ink-2)",opacity:i===3?1:.55,"data-tip":`<b>${l}</b><br><span class="mono">n = ${v} · ${nl(100*v/241,1)} %</span>`},s);
+    el("text",{x:cx,y:y0-6,"text-anchor":"middle","font-family":"var(--f-data)","font-size":10.5,fill:"var(--ink-2)",text:v},s);
+    const tx=cx,ty=bot+14;el("text",{x:tx,y:ty,"text-anchor":W<420?"end":"middle",transform:W<420?`rotate(-35 ${tx} ${ty})`:"","font-size":10.5,fill:"var(--ink-2)",text:l},s);
+  });
+}
+
+/* ---------- gender ---------- */
+function drawGender(){
+  const box=document.getElementById("gender");const W=Math.max(300,Math.min(820,box.getBoundingClientRect().width||600));
+  const D=[["Trust",3.76,3.93,.39],["Mistrust",2.86,2.65,.37],["Complotdenken",2.06,2.33,.30]];
+  const narrow=W<480,lw=narrow?100:140,rw=narrow?0:90,rh=46,H=D.length*rh+32;const s=svgIn(box,W,H);
+  const lo=2,hi=4,x=v=>lw+(v-lo)/(hi-lo)*(W-lw-rw-14);
+  [2,2.5,3,3.5,4].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:4,y2:H-24,stroke:"var(--rule)"},s);el("text",{x:x(t),y:H-8,"text-anchor":"middle","font-family":"var(--f-data)","font-size":11,fill:"var(--muted)",text:nl(t,1).replace(",0","")},s);});
+  D.forEach(([l,m,v,d],i)=>{const y=i*rh+rh/2+4;
+    el("text",{x:lw-12,y:y+4,"text-anchor":"end","font-size":13.5,fill:"var(--ink)",text:l},s);
+    el("line",{x1:x(m),x2:x(v),y1:y,y2:y,stroke:"var(--rule-strong)","stroke-width":3,"stroke-linecap":"round"},s);
+    el("circle",{cx:x(m),cy:y,r:6,fill:"var(--bg)",stroke:"var(--ink-2)","stroke-width":1.8},s);
+    el("circle",{cx:x(v),cy:y,r:6.5,fill:"var(--accent)"},s);
+    const left=Math.min(m,v)===m;
+    el("text",{x:x(m)+(left?-10:10),y:y-10,"text-anchor":left?"end":"start","font-family":"var(--f-data)","font-size":10.5,fill:"var(--ink-2)",text:nl(m)},s);
+    el("text",{x:x(v)+(left?10:-10),y:y-10,"text-anchor":left?"start":"end","font-family":"var(--f-data)","font-size":10.5,fill:"var(--accent)",text:nl(v)},s);
+    if(!narrow)el("text",{x:W-rw+8,y:y+4,"font-family":"var(--f-data)","font-size":11.5,fill:"var(--ink-2)",text:`d = ${nl(d)}`},s);
+    el("rect",{x:lw,y:y-rh/2,width:W-lw,height:rh,fill:"transparent","data-tip":`<b>${l}</b><br><span class="mono">man M = ${nl(m)} · vrouw M = ${nl(v)}<br>Cohens d = ${nl(d)} · p &lt; .05</span>`},s);
+  });
+}
+
+/* ---------- boot ---------- */
+function drawAll(){drawPerc();drawAlpha();drawMeans();drawPierre();renderDots(true);drawForest();drawMatrix();drawBeta();drawWaffle();drawTri();drawSM();drawGender();updSim();}
+buildSim();drawAll();
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(drawAll,150);});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawAll);
+})();
+</script>
